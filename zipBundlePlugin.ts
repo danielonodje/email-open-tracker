@@ -24,7 +24,7 @@ export class ZipBundlePlugin {
 					.on('finish', function(err) {
 						if (err !== undefined) {
 							console.warn(
-								`An error occured creating zipped bundle at: ${fileLocation}/indez.zip`
+								`An error occured creating zipped bundle at: ${fileLocation}/index.js.zip`
 							);
 						} else {
 							console.log(
