@@ -5,7 +5,7 @@ import { handleEvent } from './handler';
 
 const expectedEnvVariables = [
 	'HMAC_SEED',
-	'SNS_TOPIC_ARM',
+	'SNS_TOPIC_ARN',
 	'DYNAMO_DB_TABLE_NAME',
 	'AWS_ACCESS_KEY_ID',
 	'AWS_SECRET_ACCESS_KEY'
