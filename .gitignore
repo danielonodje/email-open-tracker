@@ -56,6 +56,13 @@ typings/
 
 # dotenv environment variables file
 .env
+*.env
 
 # next.js build output
 .next
+
+# mac OS detritus
+.DS_Store
+
+# webpack build output
+dist/*
