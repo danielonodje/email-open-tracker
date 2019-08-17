@@ -1,0 +1,42 @@
+{
+	"name": "email-open-tracker",
+	"version": "1.0.0",
+	"description": "Track Opened Mailgun Emails",
+	"main": "index.js",
+	"scripts": {
+		"test": "jest",
+		"build": "webpack"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/danielonodje/email-open-tracker.git"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/danielonodje/email-open-tracker/issues"
+	},
+	"homepage": "https://github.com/danielonodje/email-open-tracker#readme",
+	"dependencies": {
+		"@hapi/boom": "^7.4.3",
+		"aws-sdk": "^2.511.0",
+		"require-environment-variables": "^1.2.0"
+	},
+	"devDependencies": {
+		"@babel/core": "^7.5.5",
+		"@babel/preset-env": "^7.5.5",
+		"@babel/preset-typescript": "^7.3.3",
+		"@types/hapi__boom": "^7.4.1",
+		"@types/jest": "^24.0.17",
+		"@types/node": "^12.7.2",
+		"@types/webpack": "^4.32.2",
+		"babel-jest": "^24.9.0",
+		"jest": "^24.9.0",
+		"ts-loader": "^6.0.4",
+		"ts-node": "^8.3.0",
+		"typescript": "^3.5.3",
+		"webpack": "^4.39.2",
+		"webpack-cli": "^3.3.6"
+	}
+}
