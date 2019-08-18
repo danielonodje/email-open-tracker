@@ -5,7 +5,8 @@
 	"main": "index.js",
 	"scripts": {
 		"test": "jest",
-		"build": "webpack"
+		"build": "webpack",
+		"push-bundle-to-s3": "aws s3 cp dist/index.js.zip s3://email-open-tracker/index.js.zip"
 	},
 	"repository": {
 		"type": "git",
@@ -20,8 +21,7 @@
 	"homepage": "https://github.com/danielonodje/email-open-tracker#readme",
 	"dependencies": {
 		"@hapi/boom": "^7.4.3",
-		"aws-sdk": "^2.511.0",
-		"require-environment-variables": "^1.2.0"
+		"aws-sdk": "^2.511.0"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.5.5",

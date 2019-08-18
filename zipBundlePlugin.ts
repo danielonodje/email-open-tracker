@@ -1,40 +1,32 @@
 import { Compiler, Stats } from 'webpack';
-import { createReadStream, createWriteStream, unlinkSync } from 'fs';
-import { createGzip } from 'zlib';
+import { promisify } from 'util';
+import { exec } from 'child_process';
+
+const execPromise = promisify(exec);
 
 export class ZipBundlePlugin {
 	apply(compiler: Compiler) {
 		compiler.hooks.done.tapPromise('ZipBundlePlugin', (stats: Stats) => {
-			return new Promise(resolve => {
+			return new Promise(async resolve => {
 				const fileLocation = compiler.outputPath;
 				const filename = compiler.options.output!.filename;
 
 				if (filename === undefined) return;
 
-				const fileContents = createReadStream(`${fileLocation}/${filename}`);
-				const writeStream = createWriteStream(`${fileLocation}/index.js.zip`);
+				const zipFilename = 'index.js.zip';
 
-				const zip = createGzip();
+				console.log('Creating Zipped Bundle');
+				await execPromise(`cd ./dist; zip ${zipFilename} ${filename}`).catch(
+					e => {
+						console.warn(
+							`An error occurred zipping the bundle at ${zipFilename}`
+						);
+					}
+				);
 
-				console.log('Creating zipped bundle');
+				await execPromise(`rm ./dist/${filename}`);
 
-				fileContents
-					.pipe(zip)
-					.pipe(writeStream)
-					.on('finish', function(err) {
-						if (err !== undefined) {
-							console.warn(
-								`An error occured creating zipped bundle at: ${fileLocation}/index.js.zip`
-							);
-						} else {
-							console.log(
-								`Zipped bundle created successfully at: ${fileLocation}/index.js.zip`
-							);
-							// delete the index.js bundle after creating the zipped bundle
-							unlinkSync(`${fileLocation}/${filename}`);
-						}
-						resolve();
-					});
+				resolve();
 			});
 		});
 	}
