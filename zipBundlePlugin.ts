@@ -13,15 +13,18 @@ export class ZipBundlePlugin {
 
 				if (filename === undefined) return;
 
-				const bundledFile = `${fileLocation}/${filename}`;
-				const zipOutput = `${fileLocation}/index.js.zip`;
+				const zipFilename = 'index.js.zip';
 
 				console.log('Creating Zipped Bundle');
-				await execPromise(`zip ${zipOutput} ${bundledFile}`).catch(e => {
-					console.warn(`An error occurred zipping the bundle at ${zipOutput}`);
-				});
+				await execPromise(`cd ./dist; zip ${zipFilename} ${filename}`).catch(
+					e => {
+						console.warn(
+							`An error occurred zipping the bundle at ${zipFilename}`
+						);
+					}
+				);
 
-				await execPromise(`rm ${bundledFile}`);
+				await execPromise(`rm ./dist/${filename}`);
 
 				resolve();
 			});
