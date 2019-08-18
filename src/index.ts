@@ -8,7 +8,8 @@ const expectedEnvVariables = [
 	'SNS_TOPIC_ARN',
 	'DYNAMO_DB_TABLE_NAME',
 	'AWS_ACCESS_KEY_ID',
-	'AWS_SECRET_ACCESS_KEY'
+	'AWS_SECRET_ACCESS_KEY',
+	'AWS_REGION'
 ];
 
 export const handler = async (event: any, _context: {}, callback: Function) => {
