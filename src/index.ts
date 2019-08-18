@@ -29,7 +29,7 @@ export const handler = async (event: any, _context: {}, callback: Function) => {
 	verifyEnvVariables();
 
 	const db = new DynamoDB({ apiVersion: '2012-08-10' });
-	var SNSClient = new SNS({ apiVersion: '2012-08-10' });
+	var SNSClient = new SNS({ apiVersion: '2010-03-31' });
 	const region = process.env.AWS_REGION;
 	AWSConfig.update({ region });
 
