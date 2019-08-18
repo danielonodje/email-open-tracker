@@ -9,8 +9,7 @@ export async function pushEmailEventToSNS(
 ) {
 	const params: SNS.PublishInput = {
 		Message: JSON.stringify(data),
-		TopicArn: topicArn,
-		MessageStructure: 'json'
+		TopicArn: topicArn
 	};
 
 	return SNSClient.publish(params).promise();
