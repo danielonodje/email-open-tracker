@@ -1,5 +1,10 @@
 import { createHmac } from 'crypto';
 import { EmailEvent, EmailEventData, EmailEventSignature } from 'EmailEvent';
+import {
+	AWSServiceCallMock,
+	MockDynamoDBService,
+	MockSNSService
+} from 'AWSServiceMock';
 
 function createMock(shouldFail = false): jest.Mock<AWSServiceCallMock> {
 	return jest.fn().mockReturnValue({

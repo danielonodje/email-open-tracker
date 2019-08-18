@@ -1,6 +1,9 @@
 {
 	"compilerOptions": {
 		"sourceMap": true,
-		"strict": true
-	}
+		"strict": true,
+		"typeRoots": ["./node_modules/@types", "./typings"]
+	},
+	"include": ["./src", "./typings", "./tests"],
+	"exclude": ["node_modules", "./dist"]
 }
