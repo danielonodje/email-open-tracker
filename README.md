@@ -21,9 +21,12 @@ We'd like to track opened mailgun emails. We aim to do this by exposing a webhoo
 }
 ```
 
-## Development
+## Architecture
 
-On receving the payload we'll persist the event in the by (DynamoDB) and publish the event onto Amazon Simple Notification System (SNS).
+This app is a lambda function. It sits behind AWS API Gateway and it gets called when the configured endpoint receives a requests on the MailGun webhook.
+it pushed the received event into DynamoDb and onto the SNS queue.
+
+## Development
 
 To make this work we need some environment variables:
 
@@ -37,8 +40,16 @@ To make this work we need some environment variables:
 
 `AWS_SECRET_ACCESS_KEY - the aws secret key`
 
-Using [require-environment-variables](https://www.npmjs.com/package/require-environment-variables) the app will not start if these environment variables are not supplied.
+The AWS details need to belong to a user with the permission to write to DynamoDB for the given table name and the ability to pubish to an SNS topic for the given TopicArn.
+
+the app will not start if these environment variables are not supplied.
 
 ## Deployment
 
-The app is intended to be run as a lambda function. To package it for deployment, run `npm run build`. This causes webpack to generate a zip file `index.js.zip` in the dist directory. This zip file will be deployed to the AWS lambda.
+To package it for deployment, run `npm run build`. This causes webpack to generate a zip file `index.js.zip` in the dist directory. This zip file will be deployed to the AWS lambda.
+
+The terraform config expects that the bundle zip in in s3 so we'll push it there by running `npm run push-bundle-to-s3`. This uses the aws cli tool to copy the zip bundle to s3. aws-cli must be installed and configure with a user with the required permissions.
+
+next we deploy by running `terraform init` and `terraform apply`. This will stand up the AWS environment based on the various terraform configs available in the repo.
+
+When the build is complete terrafrom will print the webhook url to the console.
