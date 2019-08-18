@@ -5,7 +5,8 @@
 	"main": "index.js",
 	"scripts": {
 		"test": "jest",
-		"build": "webpack"
+		"build": "webpack",
+		"push-bundle-to-s3": "aws s3 cp dist/index.js.zip s3://email-open-tracker/index.js.zip"
 	},
 	"repository": {
 		"type": "git",
@@ -30,15 +31,12 @@
 		"@types/jest": "^24.0.17",
 		"@types/node": "^12.7.2",
 		"@types/webpack": "^4.32.2",
-		"@types/webpack-node-externals": "^1.6.3",
-		"archiver": "^3.1.1",
 		"babel-jest": "^24.9.0",
 		"jest": "^24.9.0",
 		"ts-loader": "^6.0.4",
 		"ts-node": "^8.3.0",
 		"typescript": "^3.5.3",
 		"webpack": "^4.39.2",
-		"webpack-cli": "^3.3.6",
-		"webpack-node-externals": "^1.7.2"
+		"webpack-cli": "^3.3.6"
 	}
 }
