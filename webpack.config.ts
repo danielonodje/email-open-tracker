@@ -1,6 +1,7 @@
 import { resolve } from 'path';
 import { Configuration } from 'webpack';
 import { ZipBundlePlugin } from './zipBundlePlugin';
+import * as WebpackNodeExternals from 'webpack-node-externals';
 
 const config: Configuration = {
 	entry: './src/index.ts',
@@ -15,16 +16,9 @@ const config: Configuration = {
 		rules: [{ test: /\.ts$/, loader: 'ts-loader' }]
 	},
 	mode: 'production',
-	optimization: {
-		usedExports: true,
-		sideEffects: false,
-		minimize: true,
-		mergeDuplicateChunks: true,
-		removeAvailableModules: true,
-		removeEmptyChunks: true,
-		nodeEnv: 'production'
-	},
-	plugins: [new ZipBundlePlugin()]
+	target: 'node',
+	plugins: [new ZipBundlePlugin()],
+	externals: [WebpackNodeExternals()]
 };
 
 export default config;
