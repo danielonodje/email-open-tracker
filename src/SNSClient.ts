@@ -1,13 +1,13 @@
-import { SNS } from 'aws-sdk';
+import { SNSService, PublishInput } from 'AWSService';
 import { EmailEventData } from 'EmailEvent';
 
 const topicArn = process.env.SNS_TOPIC_ARN;
 
 export async function pushEmailEventToSNS(
-	SNSClient: SNS,
+	SNSClient: SNSService,
 	data: EmailEventData
 ) {
-	const params: SNS.PublishInput = {
+	const params: PublishInput = {
 		Message: JSON.stringify(data),
 		TopicArn: topicArn
 	};

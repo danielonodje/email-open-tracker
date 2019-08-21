@@ -1,4 +1,3 @@
-import { strictEqual, deepEqual } from 'assert';
 import { DynamoDB, SNS } from 'aws-sdk';
 import { notAcceptable, badImplementation } from '@hapi/boom';
 import { handleEvent } from '../src/handler';
@@ -31,7 +30,7 @@ describe('EmailEvent handling', function() {
 
 			const response = callback.mock.calls[0][0];
 
-			deepEqual(response, notAcceptable());
+			expect(response).toEqual(notAcceptable());
 		});
 
 		it('should return a badImplementation(500) when it fails to save', async function() {
@@ -50,7 +49,7 @@ describe('EmailEvent handling', function() {
 
 			const response = callback.mock.calls[0][0];
 
-			deepEqual(response, badImplementation());
+			expect(response).toEqual(badImplementation());
 		});
 
 		it('should return a 200 statusCode when no errors occur', async function() {
@@ -69,7 +68,7 @@ describe('EmailEvent handling', function() {
 
 			const response = callback.mock.calls[0][0];
 
-			deepEqual(response, { statusCode: 200 });
+			expect(response).toEqual({ statusCode: 200 });
 		});
 
 		it('should attempt to push the event to the SNS service', async function() {
@@ -84,7 +83,7 @@ describe('EmailEvent handling', function() {
 
 			await handleEvent(payload, dynamoDBMock, SNSMock, callback);
 
-			strictEqual(publishItemSpy.mock.calls.length, 1);
+			expect(publishItemSpy.mock.calls).toHaveLength(1);
 		});
 	});
 });

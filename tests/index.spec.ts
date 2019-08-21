@@ -14,7 +14,7 @@ describe('EmailEvent handling', function() {
 
 			await handler(event, {}, jest.fn());
 
-			strictEqual(handleEventSpy.mock.calls.length, 1);
+			expect(handleEventSpy.mock.calls).toHaveLength(1);
 
 			jest.clearAllMocks();
 		});
@@ -27,7 +27,9 @@ describe('EmailEvent handling', function() {
 			// force a required env var to be undefined
 			delete process.env.DYNAMO_DB_TABLE_NAME;
 
-			rejects(fn);
+			await expect(handler(event, {}, () => {})).rejects.toThrow(
+				'The following required env variables are missing: DYNAMO_DB_TABLE_NAME'
+			);
 
 			// restore env var value
 			process.env.DYNAMO_DB_TABLE_NAME = capturedEnvVar;

@@ -17,11 +17,17 @@ function verifyEnvVariables() {
 	);
 
 	if (missingEnvVariables.length > 0) {
-		console.error(
+		const errorMessage = `The following required env variables are missing: ${missingEnvVariables.join(
+			', '
+		)}`;
+
+		console.warn(
 			`The following required env variables are missing: ${missingEnvVariables.join(
-				','
+				', '
 			)}`
 		);
+
+		throw new Error(errorMessage);
 	}
 }
 

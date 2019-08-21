@@ -1,4 +1,3 @@
-import { strictEqual } from 'assert';
 import { verifySignature } from '../src/crypto';
 
 import {
@@ -11,13 +10,13 @@ describe('crypto', function() {
 		it('should return false when the token and timestamp do not match the signature', function() {
 			const { signature: wrongSignature } = createPayloadWithInvalidSignature();
 
-			strictEqual(verifySignature(wrongSignature), false);
+			expect(verifySignature(wrongSignature)).toBeFalsy;
 		});
 
 		it('should return true when the token and timestamp match the signature', function() {
 			const { signature: rightSignature } = createValidPayload();
 
-			strictEqual(verifySignature(rightSignature), true);
+			expect(verifySignature(rightSignature)).toBeTruthy;
 		});
 	});
 });

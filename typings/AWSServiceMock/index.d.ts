@@ -1,10 +1,10 @@
-declare module 'AWSServiceMock' {
+declare module 'AWSService' {
 	interface MockDynamoDBService {
-		putItem(): AWSServiceCallMock;
+		putItem(params: PutItemInput): AWSServiceCallMock;
 	}
 
 	interface MockSNSService {
-		publish(): AWSServiceCallMock;
+		publish(params: PublishInput): AWSServiceCallMock;
 	}
 
 	interface AWSServiceCallMock {
@@ -15,7 +15,14 @@ declare module 'AWSServiceMock' {
 		| jest.ResolvedValue<undefined>
 		| jest.RejectedValue<undefined>;
 
-	export var MockDynamoDBService: MockDynamoDBService;
-	export var MockSNSService: MockSNSService;
+	type DynamoDBService = MockDynamoDBService | AWS.DynamoDB;
+	type SNSService = MockSNSService | AWS.SNS;
+	type PutItemInput = AWS.DynamoDB.PutItemInput;
+	type PublishInput = AWS.SNS.PublishInput;
+
 	export var AWSServiceCallMock: AWSServiceCallMock;
+	export var DynamoDBService: DynamoDBService;
+	export var SNSService: SNSService;
+	export var PutItemInput: PutItemInput;
+	export var PublishInput: PublishInput;
 }

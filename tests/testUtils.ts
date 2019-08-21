@@ -4,7 +4,7 @@ import {
 	AWSServiceCallMock,
 	MockDynamoDBService,
 	MockSNSService
-} from 'AWSServiceMock';
+} from 'AWSService';
 
 function createMock(shouldFail = false): jest.Mock<AWSServiceCallMock> {
 	return jest.fn().mockReturnValue({

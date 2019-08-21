@@ -1,4 +1,3 @@
-import { deepEqual, rejects } from 'assert';
 import { SNS } from 'aws-sdk';
 
 import { pushEmailEventToSNS } from '../src/SNSClient';
@@ -14,28 +13,24 @@ describe('SNSClient', function() {
 	describe('pushEmailEventToSNS', function() {
 		it('should create the request params correctly', async function() {
 			const data = createEventData();
-			const SNSmock = (createSNSMock() as unknown) as jest.Mocked<SNS>;
-			const publishItemSpy = SNSmock.publish;
+			const SNSmock = createSNSMock();
+			const publishItemSpy = SNSmock.publish as jest.Mock;
 
 			const expectedParams = {
 				Message: JSON.stringify(data),
-				TopicArn: topicArn,
-				MessageStructure: 'json'
+				TopicArn: topicArn
 			};
 
-			await pushEmailEventToSNS(SNSmock, data);
-
+			await expect(pushEmailEventToSNS(SNSmock, data)).resolves.toBe(undefined);
 			const calledWithParams = publishItemSpy.mock.calls[0][0];
-			deepEqual(calledWithParams, expectedParams);
+			expect(calledWithParams).toEqual(expectedParams);
 		});
 
 		it('should throw an error when publishing to SNS fails', async function() {
 			const data = createEventData();
-			const SNSmock = (createFailingSNSMock() as unknown) as jest.Mocked<SNS>;
+			const SNSmock = createFailingSNSMock();
 
-			const fn = () => pushEmailEventToSNS(SNSmock, data);
-
-			rejects(fn);
+			await expect(pushEmailEventToSNS(SNSmock, data)).rejects.toBe(undefined);
 		});
 	});
 });
